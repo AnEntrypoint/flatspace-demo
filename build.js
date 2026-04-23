@@ -144,7 +144,7 @@ const baseTemplate = (content, pageTitle) => `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${pageTitle} - ${config.site.title}</title>
     <meta name="description" content="${config.site.description}">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <style>
       html {
         scroll-behavior: smooth;
