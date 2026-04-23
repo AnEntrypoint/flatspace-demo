@@ -1,0 +1,18 @@
+export default {
+  navigation: [
+    { text: "Home", href: "/" },
+    { text: "About", href: "/about" },
+    { text: "Species", href: "/species" },
+    { text: "Behavior", href: "/behavior" },
+    { text: "Conservation", href: "/conservation" },
+    { text: "Get Involved", href: "/contact" }
+  ],
+  footer: {
+    text: "© 2026 Tiger Enthusiasts. Protecting our planet's most magnificent predators.",
+    social: [
+      { name: "Twitter", url: "https://twitter.com" },
+      { name: "Instagram", url: "https://instagram.com" },
+      { name: "Facebook", url: "https://facebook.com" }
+    ]
+  }
+};

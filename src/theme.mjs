@@ -1,23 +1,16 @@
-#!/usr/bin/env node
+import siteData from '../config/site.js';
+import navData from '../config/navigation.js';
+import pagesData from '../config/pages.js';
 
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
-const { execSync } = require('child_process');
+const config = {
+  site: siteData.site,
+  navigation: navData.navigation,
+  footer: navData.footer,
+  pages: pagesData.pages,
+};
 
-// Load configuration
-const configPath = path.join(__dirname, 'config.yaml');
-const config = yaml.load(fs.readFileSync(configPath, 'utf8'));
-
-// Ensure output directory exists
-const outputDir = path.join(__dirname, 'dist');
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-}
-
-// WebJSX component templates
+// Component templates
 const components = {
-  // Hero component
   hero: (page) => `
     <section class="relative h-screen bg-cover bg-center flex items-center justify-center overflow-hidden" style="background-image: url('${page.content.image}');">
       <div class="absolute inset-0 bg-black/40"></div>
@@ -31,7 +24,6 @@ const components = {
     </section>
   `,
 
-  // Section component with image and text
   section: (page) => `
     <section class="py-16 md:py-24 ${page.index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,7 +48,6 @@ const components = {
     </section>
   `,
 
-  // Grid component for cards
   grid: (page) => `
     <section class="py-16 md:py-24 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,7 +72,6 @@ const components = {
     </section>
   `,
 
-  // Contact component
   contact: (page) => `
     <section class="py-20 md:py-32 bg-gradient-to-r from-orange-600 to-orange-700 text-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -95,7 +85,7 @@ const components = {
   `
 };
 
-// Navigation component with GitHub Pages-friendly links
+// Layout components
 const navbar = (currentPageId = 'home') => {
   const getLink = (href) => {
     if (href === '/') return './index.html';
@@ -125,7 +115,6 @@ const navbar = (currentPageId = 'home') => {
 `;
 };
 
-// Footer component
 const footer = () => `
   <footer class="bg-gray-900 text-white py-12 border-t-4 border-orange-600">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -143,12 +132,9 @@ const footer = () => `
   </footer>
 `;
 
-// Generate CSS file
-const tailwindCSS = fs.readFileSync(require.resolve('tailwindcss/package.json')).toString();
-
-// Base HTML template with full SEO meta tags
+// Base template with SEO
 const baseTemplate = (content, pageTitle, pageId, pageDescription) => {
-  const siteUrl = 'https://anentrypoint.github.io/flatspace-demo';
+  const siteUrl = config.site.url;
   const pageUrl = pageId === 'home' ? siteUrl : `${siteUrl}/${pageId}.html`;
   const fullTitle = pageId === 'home' ? config.site.title : `${pageTitle} - ${config.site.title}`;
   const description = pageDescription || config.site.description;
@@ -157,16 +143,14 @@ const baseTemplate = (content, pageTitle, pageId, pageDescription) => {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${description}">
     <meta name="author" content="${config.site.author}">
-    <meta name="keywords" content="tigers, wildlife, conservation, predators, endangered species, big cats">
+    <meta name="keywords" content="${config.site.keywords.join(', ')}">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
 
-    <!-- Open Graph Meta Tags (Social Media) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="${fullTitle}">
     <meta property="og:description" content="${description}">
@@ -177,7 +161,6 @@ const baseTemplate = (content, pageTitle, pageId, pageDescription) => {
     <meta property="og:site_name" content="${config.site.title}">
     <meta property="og:locale" content="en_US">
 
-    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${fullTitle}">
     <meta name="twitter:description" content="${description}">
@@ -185,27 +168,21 @@ const baseTemplate = (content, pageTitle, pageId, pageDescription) => {
     <meta name="twitter:site" content="@tigers">
     <meta name="twitter:creator" content="@tigers">
 
-    <!-- Additional SEO Meta Tags -->
     <meta name="revisit-after" content="7 days">
     <meta name="rating" content="general">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="format-detection" content="telephone=no">
 
-    <!-- Canonical URL -->
     <link rel="canonical" href="${pageUrl}">
 
-    <!-- Favicon and App Icons -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🐅</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><text y='135' font-size='150'>🐅</text></svg>">
 
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="./styles.css">
 
-    <!-- Preconnect to External Resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Title -->
     <title>${fullTitle}</title>
 
     <style>
@@ -221,7 +198,6 @@ const baseTemplate = (content, pageTitle, pageId, pageDescription) => {
       }
     </style>
 
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -244,16 +220,7 @@ const baseTemplate = (content, pageTitle, pageId, pageDescription) => {
 </html>`;
 };
 
-// Generate CSS from Tailwind
-try {
-  console.log('🎨 Building CSS with Tailwind...');
-  execSync('npx tailwindcss -i input.css -o dist/styles.css', { stdio: 'inherit' });
-  console.log('✓ Generated styles.css');
-} catch (error) {
-  console.error('❌ Failed to build CSS:', error.message);
-}
-
-// Page-specific SEO descriptions
+// Page descriptions for SEO
 const pageDescriptions = {
   home: config.site.description,
   about: 'Learn about tigers - their physical characteristics, habitat, behavior, and the ecosystems they inhabit across Asia.',
@@ -263,61 +230,70 @@ const pageDescriptions = {
   contact: 'Join the movement to protect tigers. Learn how you can help support tiger conservation initiatives worldwide.',
 };
 
-// Build pages
-config.pages.forEach((page, index) => {
-  page.index = index;
-  const templateFn = components[page.template];
-  if (!templateFn) {
-    console.error(`Unknown template: ${page.template}`);
-    return;
-  }
+export default {
+  render: async (ctx) => {
+    const outputs = [];
 
-  const content = templateFn(page);
-  const pageDesc = pageDescriptions[page.id] || page.content.description || config.site.description;
-  const html = baseTemplate(content, page.title, page.id, pageDesc);
-  const filename = page.id === 'home' ? 'index.html' : `${page.id}.html`;
-  const filepath = path.join(outputDir, filename);
-
-  fs.writeFileSync(filepath, html);
-  console.log(`✓ Built ${filename}`);
-});
-
-// Generate robots.txt
-const robotsTxt = `User-agent: *
+    // Generate robots.txt
+    const robotsTxt = `User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /*.json$
 
-Sitemap: https://anentrypoint.github.io/flatspace-demo/sitemap.xml
+Sitemap: ${config.site.url}/sitemap.xml
 
 # Crawl-delay: 1
 # Request-rate: 1/10s
 `;
+    outputs.push({
+      path: 'robots.txt',
+      html: robotsTxt
+    });
 
-fs.writeFileSync(path.join(outputDir, 'robots.txt'), robotsTxt);
-console.log('✓ Generated robots.txt');
-
-// Generate XML sitemap
-const siteUrl = 'https://anentrypoint.github.io/flatspace-demo';
-const lastmod = new Date().toISOString().split('T')[0];
-const sitemapUrls = config.pages.map(page => {
-  const pageUrl = page.id === 'home' ? siteUrl : `${siteUrl}/${page.id}.html`;
-  const priority = page.id === 'home' ? '1.0' : '0.8';
-  return `  <url>
+    // Generate XML sitemap
+    const lastmod = new Date().toISOString().split('T')[0];
+    const sitemapUrls = config.pages.map(page => {
+      const pageUrl = page.id === 'home' ? config.site.url : `${config.site.url}/${page.id}.html`;
+      const priority = page.id === 'home' ? '1.0' : '0.8';
+      return `  <url>
     <loc>${pageUrl}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${priority}</priority>
   </url>`;
-}).join('\n');
+    }).join('\n');
 
-const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+    const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${sitemapUrls}
 </urlset>`;
 
-fs.writeFileSync(path.join(outputDir, 'sitemap.xml'), sitemapXml);
-console.log('✓ Generated sitemap.xml');
+    outputs.push({
+      path: 'sitemap.xml',
+      html: sitemapXml
+    });
 
-console.log(`\n✨ Build complete! Output in ${outputDir}/`);
+    // Build pages
+    config.pages.forEach((page, index) => {
+      page.index = index;
+      const templateFn = components[page.template];
+      if (!templateFn) {
+        console.error(`Unknown template: ${page.template}`);
+        return;
+      }
+
+      const content = templateFn(page);
+      const pageDesc = pageDescriptions[page.id] || page.content.description || config.site.description;
+      const html = baseTemplate(content, page.title, page.id, pageDesc);
+      const filename = page.id === 'home' ? 'index.html' : `${page.id}.html`;
+
+      outputs.push({
+        path: filename,
+        html
+      });
+    });
+
+    return outputs;
+  }
+};
