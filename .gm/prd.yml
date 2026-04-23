@@ -1,0 +1,48 @@
+- id: change-origin-to-anentrypoint
+  subject: Set git origin to AnEntrypoint/flatspace-demo
+  status: pending
+  description: Workflow will deploy gh-pages to whatever origin is configured. Change from lanmower/flatspace-demo to AnEntrypoint/flatspace-demo so Actions deploy to the correct repo.
+  effort: small
+  category: infra
+  route_family: boundary
+  acceptance:
+    - git remote origin points to https://github.com/AnEntrypoint/flatspace-demo.git
+    - Local branch main can push to origin
+
+- id: commit-prd
+  subject: Commit .gm/ directory
+  status: pending
+  description: Untracked .gm/prd.yml needs to be committed before pushing to trigger workflow.
+  effort: small
+  category: infra
+  route_family: execution
+  acceptance:
+    - .gm/prd.yml is committed
+    - git status is clean
+  blocking: [push-to-trigger-workflow]
+
+- id: push-to-trigger-workflow
+  subject: Push main to origin to trigger Actions workflow
+  status: pending
+  description: GitHub Actions workflow on build.yml will trigger on push to main. It will build dist/ and deploy to gh-pages branch via peaceiris/actions-gh-pages.
+  effort: small
+  category: infra
+  route_family: execution
+  acceptance:
+    - Pushed to origin main
+    - GitHub Actions build workflow runs
+    - peaceiris action deploys dist/ to gh-pages
+    - GitHub Pages enabled on repo shows site at gh-pages branch
+  blockedBy: [change-origin-to-anentrypoint, commit-prd]
+
+- id: verify-pages-deployment
+  subject: Verify GitHub Pages is serving from gh-pages branch
+  status: pending
+  description: Check that AnEntrypoint/flatspace-demo has GitHub Pages enabled and serving from gh-pages branch.
+  effort: small
+  category: infra
+  route_family: boundary
+  acceptance:
+    - GitHub Pages settings show gh-pages as source
+    - Deployment URL is accessible and shows tiger website
+  blockedBy: [push-to-trigger-workflow]
