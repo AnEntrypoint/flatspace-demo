@@ -1,5 +1,15 @@
 # Agents Documentation
 
+## Git Default Contributor Configuration
+
+**Requirement:** `lanmower` must always be the system default git contributor. This is a permanent global configuration that persists across all sessions.
+
+**Configuration:**
+- Git name: `lanmower` (set via `git config --global user.name "lanmower"`)
+- Git email: `lanmower@github.com` (set via `git config --global user.email "lanmower@github.com"`)
+
+**Verification:** Run `git config --global user.name` to confirm lanmower is configured. Never commit with `imraanlockhat` or any other contributor name.
+
 ## GitHub CLI Authentication
 
 GitHub CLI (`gh`) is available and authenticated as user `lanmower` with the following scopes:
