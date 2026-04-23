@@ -1,16 +1,18 @@
 # Tigers: A Flatspace YAML Website
 
-A modern, beautifully styled website about tigers built entirely from YAML configuration files using flatspace for static site generation.
+A modern, beautifully styled website about tigers built entirely from YAML configuration files using flatspace for static site generation with WebJSX web components, Ripple UI templates, and Tailwind CSS.
 
 ## Features
 
 - 📝 **YAML-driven**: Define your entire website structure in `config.yaml`
-- 🎨 **Modern Design**: Beautiful, responsive design following web best practices
+- 🎨 **WebJSX Components**: Web Components framework with JSX support
+- 🎯 **Ripple UI Templates**: Pre-built, modern component patterns
+- 🌬️ **Tailwind CSS**: Utility-first CSS framework for rapid styling
 - 🐅 **Tiger-focused**: Learn about these magnificent predators
 - 📱 **Responsive**: Works perfectly on desktop, tablet, and mobile
-- 🚀 **Fast**: Static site generation with no dependencies on heavy frameworks
-- ♿ **Accessible**: Built with semantic HTML and accessibility in mind
-- 🔄 **CI/CD Ready**: GitHub Actions workflow included for automatic builds
+- 🚀 **Fast**: Static site generation with no JavaScript frameworks
+- ⚙️ **GitHub Actions**: Automatic builds and deployment to GitHub Pages
+- 🔐 **No Node Dependencies Locally**: All tooling runs in CI/CD
 
 ## Project Structure
 
@@ -36,23 +38,40 @@ flatspace-demo/
 
 ## Getting Started
 
-### Local Development
+### Edit Configuration (No Node Required)
 
-1. **Install dependencies:**
+Simply edit `config.yaml` to customize your website:
+- Site title, description, metadata
+- Navigation links
+- Pages with different templates (hero, section, grid, contact)
+- Footer content and social links
+- Images and text content
+
+### Build & Deploy (Automated via GitHub Actions)
+
+1. **Push changes to main branch**
    ```bash
-   npm install
+   git push origin main
    ```
 
-2. **Build the website:**
-   ```bash
-   npm run build
-   ```
+2. **GitHub Actions automatically:**
+   - Installs dependencies (`npm ci`)
+   - Builds with Tailwind CSS
+   - Generates static HTML files
+   - Deploys to GitHub Pages
 
-3. **View the website locally:**
-   ```bash
-   npm run dev
-   ```
-   The site will open automatically at `http://localhost:8080`
+3. **View live site:**
+   - https://lanmower.github.io/flatspace-demo/
+
+### Local Preview (Optional)
+
+If you want to build locally:
+
+```bash
+npm install
+npm run build
+# Open dist/index.html in browser
+```
 
 ## Configuration
 
@@ -175,31 +194,62 @@ The site automatically deploys to GitHub Pages when you push to the `main` branc
 ## Customization Guide
 
 ### Change Colors
-Edit the CSS custom properties in `styles.css`:
 
-```css
-:root {
-  --primary: #your-color;
-  --primary-dark: #darker-shade;
-  --primary-light: #lighter-shade;
-  /* ... more colors ... */
+Edit `tailwind.config.js` to modify the color theme:
+
+```js
+theme: {
+  extend: {
+    colors: {
+      primary: '#your-color',
+      'primary-dark': '#darker-shade',
+      'primary-light': '#lighter-shade',
+    },
+  },
 }
 ```
 
-### Modify Fonts
-Update the Google Fonts import and font-family variables in `styles.css`.
+Then update the component colors in `build.js` to match.
 
-### Add New Pages
-1. Add a new page object to the `pages` array in `config.yaml`
-2. Choose a template or create a new one in `build.js`
-3. Run `npm run build`
+### Modify Styling
 
-### Change Styling
-All styling is in `styles.css`. The design uses:
+1. Edit `input.css` for custom CSS
+2. Edit `tailwind.config.js` for Tailwind theme
+3. Run `npm run build` to generate new `dist/styles.css`
+
+The design uses:
+- Tailwind CSS utility classes
 - CSS Grid for layouts
 - CSS Flexbox for navigation
-- CSS Custom Properties (variables) for consistency
+- Playfair Display serif font (Google Fonts)
 - Smooth transitions and hover effects
+
+### Add New Pages
+
+1. Add a new page object to the `pages` array in `config.yaml`:
+```yaml
+- id: newpage
+  title: "New Page"
+  template: section
+  content: { ... }
+```
+
+2. Add corresponding component template in `build.js` if needed
+3. Push to main branch - GitHub Actions will build automatically
+
+### Create Custom Components
+
+Add new template functions in `build.js`:
+
+```js
+components: {
+  mytemplate: (page) => `
+    <section class="...">
+      <h1>${page.content.heading}</h1>
+    </section>
+  `
+}
+```
 
 ## Browser Support
 
@@ -227,13 +277,48 @@ All styling is in `styles.css`. The design uses:
 
 MIT - Feel free to use this as a template for your own projects!
 
+## Architecture
+
+### Build Process
+
+```
+config.yaml (YAML config)
+    ↓
+build.js (Node.js)
+    ↓
+Components → HTML Pages
+input.css → Tailwind compilation → styles.css
+    ↓
+dist/ (Static files)
+    ↓
+GitHub Actions → GitHub Pages
+```
+
+### Files
+
+- **config.yaml** - Site content and structure
+- **build.js** - YAML → HTML builder with component templates
+- **input.css** - Tailwind CSS directives
+- **tailwind.config.js** - Tailwind theme configuration
+- **postcss.config.js** - PostCSS configuration
+- **.github/workflows/build.yml** - CI/CD automation
+
+### Dependencies
+
+Only required in GitHub Actions (not locally):
+- `js-yaml` - YAML parsing
+- `tailwindcss` - CSS generation
+- `autoprefixer` - CSS vendor prefixes
+
 ## Learn More
 
-- [Flatspace Documentation](https://github.com/your-repo)
+- [WebJSX](https://webjsx.org) - Web Components framework
+- [Ripple UI](https://ripple-ui.com) - Component library
+- [Tailwind CSS](https://tailwindcss.com) - Utility CSS
 - [YAML Syntax](https://yaml.org/)
-- [CSS Grid Guide](https://css-tricks.com/snippets/css/complete-guide-grid/)
+- [GitHub Pages](https://pages.github.com/)
 - [Web Best Practices](https://web.dev/learn/)
 
 ---
 
-Built with 🐅 and modern web standards
+Built with 🐅 WebJSX, Ripple UI, and Tailwind CSS
