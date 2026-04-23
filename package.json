@@ -3,16 +3,22 @@
   "version": "1.0.0",
   "description": "A beautiful YAML-driven website about tigers built with flatspace",
   "main": "build.js",
+  "scripts": {
+    "build": "npm install && node build.js"
+  },
   "keywords": [
     "flatspace",
     "tigers",
     "yaml",
     "static-site",
-    "html"
+    "html",
+    "webjsx",
+    "tailwind"
   ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "js-yaml": "^4.1.1"
+    "js-yaml": "^4.1.1",
+    "tailwindcss": "^3.4.1"
   }
 }

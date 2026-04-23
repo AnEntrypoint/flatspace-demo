@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
+const { execSync } = require('child_process');
 
 // Load configuration
 const configPath = path.join(__dirname, 'config.yaml');
@@ -132,7 +133,10 @@ const footer = () => `
   </footer>
 `;
 
-// Base HTML template with Tailwind CDN
+// Generate CSS file
+const tailwindCSS = fs.readFileSync(require.resolve('tailwindcss/package.json')).toString();
+
+// Base HTML template with local styles
 const baseTemplate = (content, pageTitle) => `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,8 +144,7 @@ const baseTemplate = (content, pageTitle) => `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${pageTitle} - ${config.site.title}</title>
     <meta name="description" content="${config.site.description}">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/@webjsx/core"></script>
+    <link rel="stylesheet" href="/styles.css">
     <style>
       html {
         scroll-behavior: smooth;
@@ -161,6 +164,15 @@ const baseTemplate = (content, pageTitle) => `<!DOCTYPE html>
     ${footer()}
 </body>
 </html>`;
+
+// Generate CSS from Tailwind
+try {
+  console.log('🎨 Building CSS with Tailwind...');
+  execSync('npx tailwindcss -i input.css -o dist/styles.css', { stdio: 'inherit' });
+  console.log('✓ Generated styles.css');
+} catch (error) {
+  console.error('❌ Failed to build CSS:', error.message);
+}
 
 // Build pages
 config.pages.forEach((page, index) => {
