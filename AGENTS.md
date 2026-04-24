@@ -6,9 +6,16 @@
 
 **Configuration:**
 - Git name: `lanmower` (set via `git config --global user.name "lanmower"`)
-- Git email: `lanmower@github.com` (set via `git config --global user.email "lanmower@github.com"`)
+- Git email: `lanmower@users.noreply.github.com` (set via `git config --global user.email "lanmower@users.noreply.github.com"`)
 
 **Verification:** Run `git config --global user.name` to confirm lanmower is configured. Never commit with `imraanlockhat` or any other contributor name.
+
+**HARD RULE - No Co-Authored-By Trailers:** Git commits must NEVER include `Co-Authored-By` trailers in commit messages. This includes:
+- No "Co-Authored-By: Claude ..." lines
+- No "Co-Authored-By: imraanlockhat ..." lines
+- No co-author trailers of any kind
+
+The repository history was rewritten with `git filter-branch` to remove all co-author trailers and incorrect author identities. Always strip these lines from commit messages before committing. The only contributor is `lanmower`.
 
 ## GitHub CLI Authentication
 
