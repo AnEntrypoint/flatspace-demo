@@ -16,3 +16,4 @@ npm-debug.log*
 .code-search/
 .codeinsight
 *.stackdump
+.gm-stop-verified
