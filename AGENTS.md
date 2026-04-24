@@ -42,3 +42,18 @@ This is a demo website about tigers built with the Flatspace YAML-based build sy
 - `SEO.md` — SEO documentation and meta tags
 - `PROJECT_SUMMARY.md` — Complete project overview
 - `README.md` — Project readme
+
+## Flatspace Build Configuration
+
+**Tailwind CSS v3:** CSS input files must use standard v3 directives. The project uses `tailwindcss@^3.4.0`.
+
+Example input.css for Tailwind v3:
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+**CI build steps:** After `npx flatspace build`, run `npx tailwindcss -i src/styles/input.css -o dist/styles.css --minify` to generate the stylesheet.
+
+File: `src/styles/input.css`
