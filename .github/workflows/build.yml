@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build with flatspace
-        run: npx flatspace
+        run: npx flatspace build
 
       - name: Deploy to GitHub Pages
         if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop') && github.event_name == 'push'
