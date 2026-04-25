@@ -1,0 +1,12 @@
+id: conservation
+title: Conservation
+template: section
+content:
+  heading: Tiger Conservation
+  description: Tiger populations face severe threats from habitat loss, poaching, and human-wildlife conflict.
+  image: https://picsum.photos/600/400?random=10
+  sections:
+    - title: Threats
+      text: Tiger populations have declined by over 95% in the last century. Major threats include poaching for traditional medicine and pelts, habitat fragmentation, and declining prey populations.
+    - title: Conservation Efforts
+      text: International efforts like the Global Tiger Initiative work to protect remaining populations through habitat conservation, anti-poaching programs, and breeding initiatives. Several countries have made significant progress in increasing tiger numbers.

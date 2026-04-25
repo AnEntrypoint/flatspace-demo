@@ -1,0 +1,8 @@
+id: home
+title: Home
+template: hero
+content:
+  heading: Tigers
+  subheading: Majestic Predators of the Wild
+  cta_text: Explore Now
+  image: https://picsum.photos/1200/600?random=1

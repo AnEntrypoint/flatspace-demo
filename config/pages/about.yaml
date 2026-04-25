@@ -1,0 +1,12 @@
+id: about
+title: About Tigers
+template: section
+content:
+  heading: About Tigers
+  description: Tigers are the largest living cats and among the most recognizable animals in the world.
+  image: https://picsum.photos/600/400?random=2
+  sections:
+    - title: Physical Characteristics
+      text: Tigers are massive carnivores with a distinctive orange coat and black stripes. They can weigh up to 300 kg (660 lbs) and reach lengths of 3.3 meters (11 feet). Each tiger has a unique stripe pattern, like a fingerprint.
+    - title: Habitat
+      text: Tigers are found primarily in Asia, inhabiting dense forests, grasslands, and mangrove swamps. They prefer areas with abundant prey and water sources.

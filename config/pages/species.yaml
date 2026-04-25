@@ -1,0 +1,25 @@
+id: species
+title: Tiger Species
+template: grid
+content:
+  heading: Tiger Subspecies
+  description: Six subspecies of tigers exist today, each adapted to their specific environment.
+  items:
+    - name: Bengal Tiger
+      description: The most common subspecies found in India and Bangladesh
+      image: https://picsum.photos/400/300?random=3
+    - name: Siberian Tiger
+      description: The largest subspecies, found in far eastern Russia and northern China
+      image: https://picsum.photos/400/300?random=4
+    - name: Sumatran Tiger
+      description: The smallest subspecies, critically endangered and found in Indonesia
+      image: https://picsum.photos/400/300?random=5
+    - name: Malayan Tiger
+      description: Found in Malaysia and southern Thailand
+      image: https://picsum.photos/400/300?random=6
+    - name: Indochinese Tiger
+      description: Found across Southeast Asia
+      image: https://picsum.photos/400/300?random=7
+    - name: South China Tiger
+      description: Critically endangered subspecies with fewer than 30 individuals in the wild
+      image: https://picsum.photos/400/300?random=8

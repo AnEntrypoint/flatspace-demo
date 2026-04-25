@@ -1,0 +1,12 @@
+id: behavior
+title: Behavior & Hunting
+template: section
+content:
+  heading: Tiger Behavior
+  description: Tigers are solitary, primarily nocturnal hunters with remarkable predatory skills.
+  image: https://picsum.photos/600/400?random=9
+  sections:
+    - title: Hunting Techniques
+      text: Tigers are apex predators that hunt alone using stealth and ambush tactics. They can run up to 60 km/h and leap distances of 9 meters. A tiger needs to hunt successfully once every 10-15 days.
+    - title: Social Structure
+      text: Unlike other big cats, tigers are solitary animals with distinct territories. Males maintain larger territories that may overlap with multiple females ranges. They communicate through roars that can be heard up to 3 km away.
