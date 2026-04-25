@@ -1,9 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /*.json$
-
 Sitemap: https://anentrypoint.github.io/flatspace-demo/sitemap.xml
-
-# Crawl-delay: 1
-# Request-rate: 1/10s
