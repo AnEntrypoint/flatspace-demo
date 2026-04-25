@@ -17,3 +17,6 @@ npm-debug.log*
 .codeinsight
 *.stackdump
 .gm-stop-verified
+.gm/
+tmp/
+rs-learn.db
