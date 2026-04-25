@@ -19,14 +19,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Build with flatspace
-        run: npx flatspace build
-
-      - name: Build CSS
-        run: npx tailwindcss -i src/styles/input.css -o dist/styles.css --minify
+        run: npx --yes flatspace@latest build
 
       - name: Deploy to GitHub Pages
         if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop') && github.event_name == 'push'

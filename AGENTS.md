@@ -38,15 +38,10 @@ A demo website about tigers built with the Flatspace YAML-based build system.
 
 ## Flatspace Build Configuration
 
-**Tailwind CSS v3:** CSS input files must use standard v3 directives. The project uses `tailwindcss@^3.4.0`.
+No `package.json` or `npm install` needed. CI runs a single step:
 
-Example input.css for Tailwind v3:
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+```
+npx --yes flatspace@latest build
 ```
 
-**CI build steps:** After `npx flatspace build`, run `npx tailwindcss -i src/styles/input.css -o dist/styles.css --minify` to generate the stylesheet.
-
-File: `src/styles/input.css`
+Flatspace internally runs `npx --yes @tailwindcss/cli@latest` to compile `src/styles/input.css` → `dist/styles.css`. Uses Tailwind v4 CSS syntax (`@import "tailwindcss"`, `@theme { }`).

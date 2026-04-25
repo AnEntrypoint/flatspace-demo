@@ -1,8 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap');
+
+@theme {
+  --color-primary: #d97706;
+  --color-primary-dark: #b45309;
+  --color-primary-light: #f59e0b;
+  --font-family-serif: 'Playfair Display', serif;
+}
 
 html {
   scroll-behavior: smooth;
@@ -17,8 +22,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
 }
-
-/* Component Styles */
 
 .btn {
   display: inline-block;
