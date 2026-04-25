@@ -30,17 +30,10 @@ GitHub CLI (`gh`) is available and authenticated as user `lanmower` with the fol
 
 ## Project: Flatspace Tiger Website
 
-This is a demo website about tigers built with the Flatspace YAML-based build system. Recent updates include:
-- Conversion to `npx flatspace` build system
-- Architecture documentation for the build process
-- Comprehensive SEO meta tags and documentation
-- Project summary documentation
+A demo website about tigers built with the Flatspace YAML-based build system.
 
 **Key files:**
 - `flatspace.config.mjs` — Build configuration
-- `ARCHITECTURE.md` — Build system architecture
-- `SEO.md` — SEO documentation and meta tags
-- `PROJECT_SUMMARY.md` — Complete project overview
 - `README.md` — Project readme
 
 ## Flatspace Build Configuration
